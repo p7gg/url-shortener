@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { compose, layout, space } from 'styled-system';
 import type { LayoutProps, SpaceProps } from 'styled-system';
 
-type PaperProps = LayoutProps & SpaceProps & {};
+type PaperProps = LayoutProps & SpaceProps;
 
 const Paper = styled('div')<PaperProps>(
   {
