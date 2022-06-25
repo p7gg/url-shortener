@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyles = createGlobalStyle((theme) => ({
+const GlobalStyles = createGlobalStyle(() => ({
   '*, *::before, *::after': {
     boxSizing: 'border-box',
   },

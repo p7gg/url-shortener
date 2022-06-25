@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextMiddleware } from 'next/server';
 
-const middleware: NextMiddleware = async (req, res) => {
+const middleware: NextMiddleware = async (req) => {
   if (
     req.nextUrl.pathname.startsWith('/api/') ||
     req.nextUrl.pathname === '/' ||

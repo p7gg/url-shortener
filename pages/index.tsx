@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   const [slug, setSlug] = useState('');
   const [url, setUrl] = useState('');
 
-  const [_, copy] = useCopyToClipboard();
+  const [, copy] = useCopyToClipboard();
 
   const checkSlug = trpc.useQuery(['slugCheck', { slug }], {
     enabled: false,

@@ -1,9 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiHandler } from 'next';
 
 import { supabase } from '@/lib';
 import type { ShortUrl } from '@/types';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getUrl: NextApiHandler = async (req, res) => {
   const slug = req.query['slug'];
 
   if (!slug || typeof slug !== 'string') {
@@ -34,3 +34,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   return res.json(data);
 };
+
+export default getUrl;
