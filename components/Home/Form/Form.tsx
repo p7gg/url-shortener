@@ -1,5 +1,4 @@
 import { Paper, Stack, Text } from '@/components/common';
-import { BASE_URL } from '@/config';
 
 import { Button, Input } from './Form.styles';
 
@@ -24,8 +23,9 @@ const Form: React.FC<FormProps> = ({
         <Stack flexDirection="column" spacing={24}>
           <Stack alignItems="center" spacing={16}>
             <Text color="#fff" fontWeight={600}>
-              {`${BASE_URL}/`}
+              /
             </Text>
+
             <Input
               required
               type="text"
@@ -39,6 +39,7 @@ const Form: React.FC<FormProps> = ({
             <Text color="#fff" fontWeight={600}>
               Link
             </Text>
+
             <Input
               required
               type="url"
