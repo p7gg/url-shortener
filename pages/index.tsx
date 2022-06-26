@@ -76,7 +76,7 @@ const Home: NextPage = () => {
         <Paper py={2} px={3}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text color="#fff" fontWeight={600}>
-              {`${origin}/`}
+              {`${origin}/${createSlug.data?.slug}`}
             </Text>
 
             <IconButton onClick={handleCopyToClipboard}>
