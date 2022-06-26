@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useCopyToClipboard } from '@prodigy7kx/usehooks-ts';
 
@@ -9,11 +9,10 @@ import { CheckmarkIcon, ClipboardIcon } from '@/components/icons';
 import { trpc } from '@/lib';
 
 const Home: NextPage = () => {
-  const { origin } = window.location;
-
   const [slug, setSlug] = useState('');
   const [url, setUrl] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+  const [origin, setOrigin] = useState('');
 
   const [, copy] = useCopyToClipboard();
 
@@ -27,7 +26,9 @@ const Home: NextPage = () => {
 
   const createSlug = trpc.useMutation(['createSlug']);
 
-  const urlToCopy = `${origin}/${createSlug.data?.slug}`;
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -52,7 +53,7 @@ const Home: NextPage = () => {
 
   const handleCopyToClipboard = () => {
     setIsCopied(true);
-    copy(urlToCopy);
+    copy(`${origin}/${createSlug.data?.slug}`);
   };
 
   return (
@@ -63,7 +64,9 @@ const Home: NextPage = () => {
       width="100%"
       style={{ zIndex: 1 }}
     >
-      <Form {...{ slug, setSlug, url, setUrl, onSubmit: handleSubmit }} />
+      <Form
+        {...{ slug, setSlug, url, setUrl, origin, onSubmit: handleSubmit }}
+      />
       {checkSlug.data?.isUsed && (
         <Text color="#fff" fontWeight={700} textAlign="center">
           slug already used
@@ -73,7 +76,7 @@ const Home: NextPage = () => {
         <Paper py={2} px={3}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text color="#fff" fontWeight={600}>
-              {urlToCopy}
+              {`${origin}/`}
             </Text>
 
             <IconButton onClick={handleCopyToClipboard}>

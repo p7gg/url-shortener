@@ -7,6 +7,7 @@ type FormProps = {
   setSlug: (slug: string) => void;
   url: string;
   setUrl: (url: string) => void;
+  origin: string;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
@@ -14,11 +15,10 @@ const Form: React.FC<FormProps> = ({
   slug,
   setSlug,
   url,
+  origin,
   setUrl,
   onSubmit,
 }) => {
-  const { origin } = window.location;
-
   return (
     <Paper p={30}>
       <form onSubmit={onSubmit}>
