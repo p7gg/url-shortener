@@ -4,12 +4,16 @@ import { useState } from 'react';
 import { useCopyToClipboard } from '@prodigy7kx/usehooks-ts';
 
 import { Form } from '@/components/Home';
-import { Paper, Stack, Text } from '@/components/common';
+import { IconButton, Paper, Stack, Text } from '@/components/common';
+import { CheckmarkIcon, ClipboardIcon } from '@/components/icons';
 import { trpc } from '@/lib';
 
 const Home: NextPage = () => {
+  const { origin } = window.location;
+
   const [slug, setSlug] = useState('');
   const [url, setUrl] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
 
   const [, copy] = useCopyToClipboard();
 
@@ -23,10 +27,13 @@ const Home: NextPage = () => {
 
   const createSlug = trpc.useMutation(['createSlug']);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const urlToCopy = `${origin}/${createSlug.data?.slug}`;
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
+      event.preventDefault();
+      setIsCopied(false);
+
       const { data } = await checkSlug.refetch();
 
       if (data?.isUsed) {
@@ -41,6 +48,11 @@ const Home: NextPage = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleCopyToClipboard = () => {
+    setIsCopied(true);
+    copy(urlToCopy);
   };
 
   return (
@@ -61,12 +73,16 @@ const Home: NextPage = () => {
         <Paper py={2} px={3}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text color="#fff" fontWeight={600}>
-              {createSlug.data.url}
+              {urlToCopy}
             </Text>
 
-            <button onClick={() => copy(createSlug.data?.url as string)}>
-              copy
-            </button>
+            <IconButton onClick={handleCopyToClipboard}>
+              {isCopied ? (
+                <CheckmarkIcon fill="green" />
+              ) : (
+                <ClipboardIcon fill="white" />
+              )}
+            </IconButton>
           </Stack>
         </Paper>
       )}

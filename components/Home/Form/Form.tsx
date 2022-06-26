@@ -17,13 +17,15 @@ const Form: React.FC<FormProps> = ({
   setUrl,
   onSubmit,
 }) => {
+  const { origin } = window.location;
+
   return (
     <Paper p={30}>
       <form onSubmit={onSubmit}>
         <Stack flexDirection="column" spacing={24}>
           <Stack alignItems="center" spacing={16}>
             <Text color="#fff" fontWeight={600}>
-              /
+              {origin}
             </Text>
 
             <Input

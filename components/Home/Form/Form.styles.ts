@@ -36,6 +36,7 @@ export const Button = styled('button')({
   padding: '12px 0',
 
   transition: 'outline 100ms ease-in',
+  outlineColor: 'rgba(71, 75, 255, .23)',
 
   '&:hover': {
     outline: '2px solid rgba(71, 75, 255, .23)',
